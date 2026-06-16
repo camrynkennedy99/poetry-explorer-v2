@@ -2,6 +2,7 @@ import { C } from "../constants";
 import PillBtn from "./PillBtn";
 import { BackIcon } from "./Icons";
 
+// v2
 export default function Pagination({ page, totalPages, onChange }) {
   const go = (n) => {
     onChange(n);
