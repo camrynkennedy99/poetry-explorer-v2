@@ -23,7 +23,7 @@ function Chip({ children, onClick }) {
 export default function SearchHero({ searchType, setSearchType, query, setQuery, onSubmit, onChip, loading, compact }) {
   const inputRef = useRef(null);
 
-  const handleToggle = (t) => {
+  const handleToggle = (t) => { // preserve focus
     const wasFocused = document.activeElement === inputRef.current;
     setSearchType(t);
     if (wasFocused) inputRef.current?.focus();
