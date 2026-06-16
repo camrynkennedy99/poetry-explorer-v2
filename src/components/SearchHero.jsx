@@ -40,6 +40,7 @@ export default function SearchHero({ searchType, setSearchType, query, setQuery,
         `,
         borderBottom: `1px solid ${C.rule}`,
         position: "relative", overflow: "hidden",
+        // responsive padding
         padding: compact
           ? "32px clamp(20px, 5vw, 48px) 28px"
           : "clamp(48px, 8vh, 88px) clamp(20px, 5vw, 48px) 48px",
