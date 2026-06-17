@@ -1,5 +1,7 @@
 # Poetry Explorer
 
+A fast, minimal poetry search app built with React and the PoetryDB API.
+
 A single-page app for searching and reading classic poetry. Search by title or author, browse a random selection on the home page, save poems to a favorites list, or hit "Surprise me" when you're not sure what you're looking for.
 
 ---
