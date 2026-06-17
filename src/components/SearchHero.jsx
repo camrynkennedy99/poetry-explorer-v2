@@ -23,7 +23,7 @@ function Chip({ children, onClick }) {
 export default function SearchHero({ searchType, setSearchType, query, setQuery, onSubmit, onChip, loading, compact }) {
   const inputRef = useRef(null);
 
-  const handleToggle = (t) => { // preserve focus
+  const handleToggle = (t) => {
     const wasFocused = document.activeElement === inputRef.current;
     setSearchType(t);
     if (wasFocused) inputRef.current?.focus();
@@ -40,7 +40,7 @@ export default function SearchHero({ searchType, setSearchType, query, setQuery,
         `,
         borderBottom: `1px solid ${C.rule}`,
         position: "relative", overflow: "hidden",
-        // responsive padding
+        
         padding: compact
           ? "32px clamp(20px, 5vw, 48px) 28px"
           : "clamp(48px, 8vh, 88px) clamp(20px, 5vw, 48px) 48px",
