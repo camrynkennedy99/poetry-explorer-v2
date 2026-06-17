@@ -1,0 +1,235 @@
+{
+  "global": {
+    "color": {
+      "palette": {
+        "cream":      { "value": "#F7F4EF", "type": "color", "description": "App surface / hero base" },
+        "parchment":  { "value": "#EDE9E1", "type": "color", "description": "Subtle section background" },
+        "linen":      { "value": "#E2DDD5", "type": "color", "description": "App canvas / page backdrop" },
+        "ink":        { "value": "#1A1814", "type": "color", "description": "Primary text" },
+        "charcoal":   { "value": "#3D3A35", "type": "color", "description": "Secondary text" },
+        "dust":       { "value": "#6F6A62", "type": "color", "description": "Muted text — AA on cream" },
+        "rule":       { "value": "#D4CFC7", "type": "color", "description": "Default border / divider" },
+        "cobalt":     { "value": "#2D46B9", "type": "color", "description": "Accent — ~7.4:1 on cream" },
+        "cobaltDim":  { "value": "#1F3490", "type": "color", "description": "Accent hover / pressed" },
+        "cobaltTint": { "value": "#EEF1FB", "type": "color", "description": "Accent tint / hover fill" },
+        "error":      { "value": "#9A2F2F", "type": "color", "description": "Error / connection failure" },
+        "page":       { "value": "#FCFBF8", "type": "color", "description": "Reading page background" },
+        "cardBg":     { "value": "#FFFFFF", "type": "color", "description": "Raised card surface" },
+        "cardEdge":   { "value": "#E4DFD6", "type": "color", "description": "Card border" },
+        "rowLine":    { "value": "#EFEBE3", "type": "color", "description": "In-card row divider" }
+      },
+      "bg": {
+        "canvas":  { "value": "{color.palette.linen}", "type": "color" },
+        "surface": { "value": "{color.palette.cream}", "type": "color" },
+        "subtle":  { "value": "{color.palette.parchment}", "type": "color" },
+        "raised":  { "value": "{color.palette.cardBg}", "type": "color" },
+        "page":    { "value": "{color.palette.page}", "type": "color" }
+      },
+      "text": {
+        "primary":   { "value": "{color.palette.ink}", "type": "color" },
+        "secondary": { "value": "{color.palette.charcoal}", "type": "color" },
+        "muted":     { "value": "{color.palette.dust}", "type": "color" },
+        "onAccent":  { "value": "#FFFFFF", "type": "color" }
+      },
+      "accent": {
+        "default": { "value": "{color.palette.cobalt}", "type": "color" },
+        "hover":   { "value": "{color.palette.cobaltDim}", "type": "color" },
+        "tint":    { "value": "{color.palette.cobaltTint}", "type": "color" }
+      },
+      "border": {
+        "default": { "value": "{color.palette.rule}", "type": "color" },
+        "card":    { "value": "{color.palette.cardEdge}", "type": "color" },
+        "row":     { "value": "{color.palette.rowLine}", "type": "color" },
+        "accent":  { "value": "{color.palette.cobalt}", "type": "color" }
+      },
+      "feedback": {
+        "error": { "value": "{color.palette.error}", "type": "color" }
+      }
+    },
+
+    "fontFamilies": {
+      "serif": { "value": "Playfair Display", "type": "fontFamilies", "description": "Display, titles, poem text" },
+      "sans":  { "value": "Inter", "type": "fontFamilies", "description": "UI, labels, body" }
+    },
+    "fontWeights": {
+      "light":    { "value": "300", "type": "fontWeights" },
+      "regular":  { "value": "400", "type": "fontWeights" },
+      "medium":   { "value": "500", "type": "fontWeights" },
+      "semibold": { "value": "600", "type": "fontWeights" },
+      "bold":     { "value": "700", "type": "fontWeights" }
+    },
+    "fontSizes": {
+      "2xs":  { "value": "10", "type": "fontSizes" },
+      "xs":   { "value": "11", "type": "fontSizes" },
+      "sm":   { "value": "13", "type": "fontSizes" },
+      "base": { "value": "14", "type": "fontSizes" },
+      "md":   { "value": "16", "type": "fontSizes" },
+      "lg":   { "value": "19", "type": "fontSizes" },
+      "xl":   { "value": "22", "type": "fontSizes" },
+      "2xl":  { "value": "30", "type": "fontSizes" },
+      "3xl":  { "value": "40", "type": "fontSizes" },
+      "4xl":  { "value": "54", "type": "fontSizes" },
+      "5xl":  { "value": "64", "type": "fontSizes" }
+    },
+    "lineHeights": {
+      "tight":   { "value": "1.05", "type": "lineHeights" },
+      "snug":    { "value": "1.25", "type": "lineHeights" },
+      "normal":  { "value": "1.5",  "type": "lineHeights" },
+      "relaxed": { "value": "1.6",  "type": "lineHeights" },
+      "poem":    { "value": "1.85", "type": "lineHeights" }
+    },
+    "letterSpacing": {
+      "tighter": { "value": "-0.02em", "type": "letterSpacing" },
+      "tight":   { "value": "-0.01em", "type": "letterSpacing" },
+      "normal":  { "value": "0em",     "type": "letterSpacing" },
+      "wide":    { "value": "0.1em",   "type": "letterSpacing" },
+      "wider":   { "value": "0.14em",  "type": "letterSpacing" },
+      "widest":  { "value": "0.18em",  "type": "letterSpacing" },
+      "label":   { "value": "0.2em",   "type": "letterSpacing" }
+    },
+
+    "spacing": {
+      "1":  { "value": "4",  "type": "spacing" },
+      "2":  { "value": "8",  "type": "spacing" },
+      "3":  { "value": "10", "type": "spacing" },
+      "4":  { "value": "14", "type": "spacing" },
+      "5":  { "value": "16", "type": "spacing" },
+      "6":  { "value": "18", "type": "spacing" },
+      "7":  { "value": "20", "type": "spacing" },
+      "8":  { "value": "22", "type": "spacing" },
+      "9":  { "value": "26", "type": "spacing" },
+      "10": { "value": "28", "type": "spacing" },
+      "12": { "value": "32", "type": "spacing" },
+      "14": { "value": "36", "type": "spacing" },
+      "16": { "value": "48", "type": "spacing" },
+      "18": { "value": "56", "type": "spacing" }
+    },
+    "borderRadius": {
+      "xs":       { "value": "3",    "type": "borderRadius" },
+      "sm":       { "value": "4",    "type": "borderRadius", "description": "Browse cards" },
+      "md":       { "value": "10",   "type": "borderRadius" },
+      "lg":       { "value": "12",   "type": "borderRadius", "description": "Rail cards" },
+      "squircle": { "value": "13",   "type": "borderRadius", "description": "Search submit button" },
+      "pill":     { "value": "100",  "type": "borderRadius" },
+      "full":     { "value": "9999", "type": "borderRadius" }
+    },
+    "borderWidth": {
+      "thin":   { "value": "1",   "type": "borderWidth" },
+      "medium": { "value": "1.5", "type": "borderWidth" },
+      "thick":  { "value": "2",   "type": "borderWidth" },
+      "focus":  { "value": "3",   "type": "borderWidth", "description": "WCAG 2.4.7 focus ring" }
+    },
+    "boxShadow": {
+      "card": {
+        "value": { "x": "0", "y": "1", "blur": "4", "spread": "0", "color": "rgba(26,24,20,0.05)", "type": "dropShadow" },
+        "type": "boxShadow"
+      },
+      "cardHover": {
+        "value": { "x": "0", "y": "8", "blur": "32", "spread": "0", "color": "rgba(45,70,185,0.10)", "type": "dropShadow" },
+        "type": "boxShadow"
+      },
+      "railCard": {
+        "value": { "x": "0", "y": "1", "blur": "3", "spread": "0", "color": "rgba(26,24,20,0.04)", "type": "dropShadow" },
+        "type": "boxShadow"
+      },
+      "searchBar": {
+        "value": [
+          { "x": "0", "y": "8", "blur": "40", "spread": "0", "color": "rgba(45,70,185,0.13)", "type": "dropShadow" },
+          { "x": "0", "y": "2", "blur": "8",  "spread": "0", "color": "rgba(26,24,20,0.07)", "type": "dropShadow" }
+        ],
+        "type": "boxShadow"
+      },
+      "searchButton": {
+        "value": { "x": "0", "y": "3", "blur": "12", "spread": "0", "color": "rgba(45,70,185,0.35)", "type": "dropShadow" },
+        "type": "boxShadow"
+      }
+    },
+
+    "typography": {
+      "hero": {
+        "value": {
+          "fontFamily": "{fontFamilies.serif}", "fontWeight": "{fontWeights.medium}",
+          "fontSize": "{fontSizes.4xl}", "lineHeight": "{lineHeights.tight}",
+          "letterSpacing": "{letterSpacing.tighter}"
+        },
+        "type": "typography", "description": "Home hero headline"
+      },
+      "readingTitle": {
+        "value": {
+          "fontFamily": "{fontFamilies.serif}", "fontWeight": "{fontWeights.medium}",
+          "fontSize": "{fontSizes.4xl}", "lineHeight": "{lineHeights.tight}",
+          "letterSpacing": "{letterSpacing.tighter}"
+        },
+        "type": "typography", "description": "Poem title in reading view"
+      },
+      "cardTitleLarge": {
+        "value": {
+          "fontFamily": "{fontFamilies.serif}", "fontWeight": "{fontWeights.medium}",
+          "fontSize": "{fontSizes.2xl}", "lineHeight": "{lineHeights.snug}",
+          "letterSpacing": "{letterSpacing.tight}"
+        },
+        "type": "typography", "description": "Featured browse card title"
+      },
+      "resultTitle": {
+        "value": {
+          "fontFamily": "{fontFamilies.serif}", "fontWeight": "{fontWeights.medium}",
+          "fontSize": "{fontSizes.xl}", "lineHeight": "{lineHeights.snug}",
+          "letterSpacing": "{letterSpacing.tight}"
+        },
+        "type": "typography", "description": "Result row / card title"
+      },
+      "poemBody": {
+        "value": {
+          "fontFamily": "{fontFamilies.serif}", "fontWeight": "{fontWeights.regular}",
+          "fontSize": "{fontSizes.xl}", "lineHeight": "{lineHeights.poem}",
+          "letterSpacing": "{letterSpacing.normal}"
+        },
+        "type": "typography", "description": "Verse text in reading view"
+      },
+      "firstLine": {
+        "value": {
+          "fontFamily": "{fontFamilies.serif}", "fontWeight": "{fontWeights.regular}",
+          "fontSize": "{fontSizes.base}", "lineHeight": "{lineHeights.relaxed}",
+          "letterSpacing": "{letterSpacing.normal}"
+        },
+        "type": "typography", "description": "Italic first-line preview"
+      },
+      "bodyText": {
+        "value": {
+          "fontFamily": "{fontFamilies.sans}", "fontWeight": "{fontWeights.light}",
+          "fontSize": "{fontSizes.md}", "lineHeight": "{lineHeights.relaxed}",
+          "letterSpacing": "{letterSpacing.normal}"
+        },
+        "type": "typography", "description": "Sans body / descriptions"
+      },
+      "label": {
+        "value": {
+          "fontFamily": "{fontFamilies.sans}", "fontWeight": "{fontWeights.semibold}",
+          "fontSize": "{fontSizes.xs}", "lineHeight": "{lineHeights.normal}",
+          "letterSpacing": "{letterSpacing.widest}", "textCase": "uppercase"
+        },
+        "type": "typography", "description": "Eyebrow / uppercase label"
+      },
+      "buttonLabel": {
+        "value": {
+          "fontFamily": "{fontFamilies.sans}", "fontWeight": "{fontWeights.medium}",
+          "fontSize": "{fontSizes.sm}", "lineHeight": "{lineHeights.normal}",
+          "letterSpacing": "{letterSpacing.wide}", "textCase": "uppercase"
+        },
+        "type": "typography", "description": "Pill button text"
+      },
+      "authorMeta": {
+        "value": {
+          "fontFamily": "{fontFamilies.sans}", "fontWeight": "{fontWeights.semibold}",
+          "fontSize": "{fontSizes.xs}", "lineHeight": "{lineHeights.normal}",
+          "letterSpacing": "{letterSpacing.wider}", "textCase": "uppercase"
+        },
+        "type": "typography", "description": "Author name on rows/cards"
+      }
+    }
+  },
+  "$themes": [],
+  "$metadata": {
+    "tokenSetOrder": ["global"]
+  }
+}

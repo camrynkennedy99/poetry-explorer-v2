@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1200, initial-scale=1" />
+<title>Poetry Explorer — UI Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F7F4EF; --parchment:#EDE9E1; --linen:#E2DDD5; --ink:#1A1814;
+    --charcoal:#3D3A35; --dust:#6F6A62; --rule:#D4CFC7; --cobalt:#2D46B9;
+    --cobaltDim:#1F3490; --cobaltTint:#EEF1FB; --error:#9A2F2F; --page:#FCFBF8;
+    --cardBg:#FFFFFF; --cardEdge:#E4DFD6; --rowLine:#EFEBE3;
+    --serif:'Playfair Display',Georgia,serif; --sans:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--linen);font-family:var(--sans);color:var(--ink);padding:56px;}
+  .kit{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:48px;}
+
+  .kit-head h1{font-family:var(--serif);font-weight:500;font-size:46px;letter-spacing:-0.02em;color:var(--ink);}
+  .kit-head .eyebrow{font-family:var(--sans);font-weight:600;text-transform:uppercase;letter-spacing:0.18em;font-size:11px;color:var(--cobalt);margin-bottom:12px;}
+  .kit-head p{font-weight:300;font-size:15px;color:var(--charcoal);margin-top:8px;max-width:620px;line-height:1.55;}
+
+  .section{background:var(--cream);border:1px solid var(--rule);border-radius:14px;padding:32px;}
+  .section > h2{font-family:var(--sans);font-weight:600;text-transform:uppercase;letter-spacing:0.16em;font-size:12px;color:var(--cobalt);margin-bottom:22px;}
+  .row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;}
+  .col{display:flex;flex-direction:column;gap:10px;}
+  .cap{font-family:var(--sans);font-weight:500;text-transform:uppercase;letter-spacing:0.14em;font-size:10px;color:var(--dust);}
+
+  /* Color swatches */
+  .swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+  .swatch .chipc{height:64px;border-radius:8px;border:1px solid rgba(26,24,20,0.08);}
+  .swatch .name{font-weight:600;font-size:12px;color:var(--ink);margin-top:8px;}
+  .swatch .hex{font-weight:300;font-size:11px;color:var(--dust);margin-top:2px;letter-spacing:0.02em;}
+
+  /* Type scale */
+  .type-scale{display:flex;flex-direction:column;gap:20px;}
+  .type-row{display:flex;align-items:baseline;gap:20px;border-bottom:1px solid var(--rule);padding-bottom:18px;}
+  .type-row .meta{flex-shrink:0;width:150px;}
+  .type-row .meta .t{font-weight:600;font-size:12px;color:var(--ink);}
+  .type-row .meta .s{font-weight:300;font-size:11px;color:var(--dust);margin-top:2px;}
+
+  /* Buttons */
+  .pill{border-radius:100px;display:inline-flex;align-items:center;gap:8px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;font-size:12px;padding:13px 26px;border:none;font-family:var(--sans);}
+  .pill.small{font-size:11px;padding:9px 18px;}
+  .pill.solid{background:var(--cobalt);color:#fff;}
+  .pill.solid.hover{background:var(--cobaltDim);}
+  .pill.ghost{background:transparent;border:1.5px solid var(--rule);color:var(--charcoal);}
+  .pill.ghost.hover{background:var(--cobaltTint);border-color:var(--cobalt);color:var(--cobaltDim);}
+
+  /* Chip */
+  .chip{border-radius:100px;padding:7px 15px;border:1.5px solid var(--rule);background:transparent;color:var(--charcoal);font-size:12.5px;font-weight:400;font-family:var(--sans);}
+  .chip.hover{border-color:var(--cobalt);background:var(--cobaltTint);color:var(--cobaltDim);}
+
+  /* Search bar */
+  .searchbar{display:flex;align-items:center;gap:10px;background:#fff;border-radius:9999px;padding:8px 16px 8px 6px;box-shadow:0 8px 40px rgba(45,70,185,0.13),0 2px 8px rgba(26,24,20,0.07);max-width:680px;}
+  .stoggle{display:flex;align-items:center;gap:6px;padding:0 4px 0 12px;flex-shrink:0;}
+  .stoggle .lab{font-weight:600;text-transform:uppercase;letter-spacing:0.14em;font-size:10px;color:var(--cobalt);}
+  .sdivider{width:1px;height:28px;background:var(--rule);flex-shrink:0;}
+  .sinner{flex:1;display:flex;align-items:center;gap:10px;border:1.5px solid #BFCEF7;border-radius:9999px;background:#fff;padding:10px 16px;margin-left:24px;}
+  .sinner input{flex:1;border:none;outline:none;background:transparent;font-size:15px;font-family:var(--sans);font-weight:300;color:var(--dust);}
+  .sbtn{flex-shrink:0;width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,#4B68D4 0%,var(--cobalt) 55%,var(--cobaltDim) 100%);border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(45,70,185,0.35);}
+
+  /* Result row */
+  .result{display:grid;grid-template-columns:44px 1fr auto;gap:0 20px;align-items:center;padding:22px 28px;border:1px solid var(--rule);background:var(--cream);border-left:3px solid transparent;border-radius:6px;}
+  .result.hover{border-left:3px solid var(--cobalt);background:var(--cobaltTint);}
+  .result .idx{font-weight:500;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dust);}
+  .result.hover .idx{color:var(--cobalt);}
+  .result h3{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink);letter-spacing:-0.01em;line-height:1.25;}
+  .result .auth{font-weight:600;text-transform:uppercase;letter-spacing:0.14em;font-size:11px;color:var(--cobaltDim);margin:5px 0 7px;}
+  .result .fl{font-family:var(--serif);font-size:14px;color:var(--charcoal);font-style:italic;}
+  .result .meta{display:flex;align-items:center;gap:10px;}
+  .result .lines{font-weight:400;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dust);white-space:nowrap;}
+
+  /* Poem card */
+  .pcard{width:300px;background:var(--cream);border:1px solid var(--rule);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 4px rgba(26,24,20,0.05);border-radius:4px;}
+  .pcard.hover{border-color:var(--cobalt);box-shadow:0 8px 32px rgba(45,70,185,0.10);}
+  .pcard .img{height:150px;width:100%;background:linear-gradient(135deg,#cfd8ea,#aab6d6);}
+  .pcard .body{padding:18px 20px 20px;display:flex;flex-direction:column;}
+  .pcard h3{font-family:var(--serif);font-size:19px;font-weight:500;line-height:1.2;color:var(--ink);letter-spacing:-0.01em;}
+  .pcard .auth{font-weight:600;text-transform:uppercase;letter-spacing:0.14em;font-size:11px;color:var(--cobaltDim);margin:8px 0 10px;}
+  .pcard .fl{font-family:var(--serif);font-size:13.5px;color:var(--charcoal);font-style:italic;line-height:1.6;}
+  .pcard .foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;}
+  .pcard .lines{font-weight:400;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dust);}
+
+  /* Featured wide card */
+  .pcard.wide{width:640px;flex-direction:row;}
+  .pcard.wide .img{width:38%;height:auto;min-height:220px;position:relative;}
+  .pcard.wide .badge{position:absolute;top:16px;left:16px;background:var(--cobalt);color:#fff;padding:5px 12px;border-radius:100px;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;font-size:10px;}
+  .pcard.wide .body{padding:28px 32px;flex:1;}
+  .pcard.wide h3{font-size:28px;}
+  .pcard.wide .fl{font-size:16px;}
+
+  /* Favorite heart */
+  .fav{border:1.5px solid var(--rule);background:transparent;color:var(--dust);border-radius:100px;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;}
+  .fav.hover{border-color:var(--cobalt);background:var(--cobaltTint);color:var(--cobalt);}
+  .fav.active{border-color:var(--cobalt);background:var(--cobalt);color:#fff;}
+
+  /* Rail card */
+  .railcard{width:300px;background:var(--cardBg);border:1px solid var(--cardEdge);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(26,24,20,0.04);}
+  .railcard .rhead{padding:15px 20px;border-bottom:1px solid var(--rowLine);display:flex;align-items:center;gap:9px;}
+  .railcard .rhead .h{font-weight:600;text-transform:uppercase;letter-spacing:0.16em;font-size:11px;color:var(--charcoal);}
+  .railcard .rhead .i{color:var(--cobalt);display:inline-flex;}
+  .crow{display:flex;align-items:center;gap:13px;padding:14px 20px;border-bottom:1px solid var(--rowLine);background:transparent;}
+  .crow:last-child{border-bottom:none;}
+  .crow.hover{background:var(--cobaltTint);}
+  .crow .ic{flex-shrink:0;width:34px;height:34px;border-radius:9px;background:var(--cobaltTint);color:var(--cobalt);display:inline-flex;align-items:center;justify-content:center;}
+  .crow.hover .ic{background:var(--cobalt);color:#fff;}
+  .crow .txt{flex:1;min-width:0;}
+  .crow .txt .t{font-weight:500;font-size:14.5px;color:var(--ink);line-height:1.3;}
+  .crow .txt .s{font-weight:300;font-size:12.5px;color:var(--dust);margin-top:2px;}
+  .crow .chev{color:var(--rule);}
+  .crow.hover .chev{color:var(--cobalt);}
+
+  .legend{font-weight:300;font-size:12px;color:var(--dust);margin-top:-12px;}
+</style>
+</head>
+<body>
+<div class="kit">
+
+  <div class="kit-head">
+    <div class="eyebrow">Design Library</div>
+    <h1>Poetry Explorer — UI Kit</h1>
+    <p>Core components and foundations extracted from the live app. Import this page with the html.to.design Figma plugin to generate editable frames; pair it with the tokens JSON (Tokens Studio) for color, type, and spacing variables.</p>
+  </div>
+
+  <!-- COLOR -->
+  <section class="section">
+    <h2>Color</h2>
+    <div class="swatches">
+      <div class="swatch"><div class="chipc" style="background:#F7F4EF"></div><div class="name">Cream</div><div class="hex">#F7F4EF · surface</div></div>
+      <div class="swatch"><div class="chipc" style="background:#EDE9E1"></div><div class="name">Parchment</div><div class="hex">#EDE9E1 · subtle</div></div>
+      <div class="swatch"><div class="chipc" style="background:#E2DDD5"></div><div class="name">Linen</div><div class="hex">#E2DDD5 · canvas</div></div>
+      <div class="swatch"><div class="chipc" style="background:#FCFBF8"></div><div class="name">Page</div><div class="hex">#FCFBF8 · reading</div></div>
+      <div class="swatch"><div class="chipc" style="background:#FFFFFF"></div><div class="name">Card</div><div class="hex">#FFFFFF · raised</div></div>
+      <div class="swatch"><div class="chipc" style="background:#1A1814"></div><div class="name">Ink</div><div class="hex">#1A1814 · text</div></div>
+      <div class="swatch"><div class="chipc" style="background:#3D3A35"></div><div class="name">Charcoal</div><div class="hex">#3D3A35 · text 2</div></div>
+      <div class="swatch"><div class="chipc" style="background:#6F6A62"></div><div class="name">Dust</div><div class="hex">#6F6A62 · muted</div></div>
+      <div class="swatch"><div class="chipc" style="background:#D4CFC7"></div><div class="name">Rule</div><div class="hex">#D4CFC7 · border</div></div>
+      <div class="swatch"><div class="chipc" style="background:#E4DFD6"></div><div class="name">Card edge</div><div class="hex">#E4DFD6 · border</div></div>
+      <div class="swatch"><div class="chipc" style="background:#2D46B9"></div><div class="name">Cobalt</div><div class="hex">#2D46B9 · accent</div></div>
+      <div class="swatch"><div class="chipc" style="background:#1F3490"></div><div class="name">Cobalt dim</div><div class="hex">#1F3490 · hover</div></div>
+      <div class="swatch"><div class="chipc" style="background:#EEF1FB"></div><div class="name">Cobalt tint</div><div class="hex">#EEF1FB · tint</div></div>
+      <div class="swatch"><div class="chipc" style="background:#EFEBE3"></div><div class="name">Row line</div><div class="hex">#EFEBE3 · divider</div></div>
+      <div class="swatch"><div class="chipc" style="background:#9A2F2F"></div><div class="name">Error</div><div class="hex">#9A2F2F · feedback</div></div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section">
+    <h2>Typography</h2>
+    <div class="type-scale">
+      <div class="type-row">
+        <div class="meta"><div class="t">Hero</div><div class="s">Playfair · 54 · 500</div></div>
+        <div style="font-family:var(--serif);font-weight:500;font-size:54px;line-height:1.05;letter-spacing:-0.02em;color:var(--ink);">Find the poem</div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">Reading title</div><div class="s">Playfair · 40 · 500</div></div>
+        <div style="font-family:var(--serif);font-weight:500;font-size:40px;letter-spacing:-0.02em;color:var(--ink);">Ozymandias</div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">Result title</div><div class="s">Playfair · 22 · 500</div></div>
+        <div style="font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:-0.01em;color:var(--ink);">The Hope of Spring</div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">Poem body</div><div class="s">Playfair · 22 · 400 · 1.85</div></div>
+        <div style="font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.85;color:var(--charcoal);">I met a traveller from an antique land</div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">First line</div><div class="s">Playfair italic · 14</div></div>
+        <div style="font-family:var(--serif);font-style:italic;font-size:14px;color:var(--charcoal);">Two roads diverged in a yellow wood</div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">Body</div><div class="s">Inter · 16 · 300</div></div>
+        <div style="font-family:var(--sans);font-weight:300;font-size:16px;color:var(--charcoal);">Search thousands of poems by title or author.</div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">Label / eyebrow</div><div class="s">Inter · 11 · 600 · 0.18em</div></div>
+        <div style="font-family:var(--sans);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--cobalt);">Where the right words find you</div>
+      </div>
+      <div class="type-row" style="border-bottom:none;padding-bottom:0;">
+        <div class="meta"><div class="t">Author meta</div><div class="s">Inter · 11 · 600 · 0.14em</div></div>
+        <div style="font-family:var(--sans);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:var(--cobaltDim);">Emily Dickinson</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section class="section">
+    <h2>Buttons &amp; Chips</h2>
+    <div class="legend">Each component shown in default and hover state.</div>
+    <div class="row">
+      <div class="col"><span class="cap">Solid · default</span><button class="pill solid">Send me poems</button></div>
+      <div class="col"><span class="cap">Solid · hover</span><button class="pill solid hover">Send me poems</button></div>
+      <div class="col"><span class="cap">Ghost · default</span><button class="pill ghost">Back to poems</button></div>
+      <div class="col"><span class="cap">Ghost · hover</span><button class="pill ghost hover">Back to poems</button></div>
+    </div>
+    <div class="row" style="margin-top:24px;">
+      <div class="col"><span class="cap">Solid small</span><button class="pill solid small">Favorites · 3</button></div>
+      <div class="col"><span class="cap">Ghost small</span><button class="pill ghost small">Surprise me</button></div>
+      <div class="col"><span class="cap">Chip · default</span><button class="chip">Emily Dickinson</button></div>
+      <div class="col"><span class="cap">Chip · hover</span><button class="chip hover">William Blake</button></div>
+    </div>
+  </section>
+
+  <!-- SEARCH BAR -->
+  <section class="section">
+    <h2>Search Bar</h2>
+    <div class="searchbar">
+      <div class="stoggle">
+        <span class="lab">By title</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#2D46B9" stroke-width="2" stroke-linecap="round"><polyline points="2 4 6 8 10 4"/></svg>
+      </div>
+      <div class="sdivider"></div>
+      <div class="sinner">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#2D46B9" stroke-width="1.75" stroke-linecap="round" style="opacity:.7"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg>
+        <input value="&quot;Ozymandias&quot; or &quot;Hope&quot;" readonly />
+      </div>
+      <button class="sbtn">
+        <svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- RESULT ROW -->
+  <section class="section">
+    <h2>Result Row</h2>
+    <div class="legend">Default and hover (left accent border + tint).</div>
+    <div class="col" style="gap:16px;">
+      <div class="result">
+        <span class="idx">01</span>
+        <div>
+          <h3>Ozymandias</h3>
+          <p class="auth">Percy Bysshe Shelley</p>
+          <p class="fl">I met a traveller from an antique land</p>
+        </div>
+        <div class="meta">
+          <span class="lines">14 lines</span>
+          <span class="fav"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21C12 21 3 13.9 3 8.5C3 5.4 5.4 3 8.2 3C9.7 3 11.1 3.7 12 4.9C12.9 3.7 14.3 3 15.8 3C18.6 3 21 5.4 21 8.5C21 13.9 12 21 12 21Z"/></svg></span>
+        </div>
+      </div>
+      <div class="result hover">
+        <span class="idx">02</span>
+        <div>
+          <h3>The Road Not Taken</h3>
+          <p class="auth">Robert Frost</p>
+          <p class="fl">Two roads diverged in a yellow wood</p>
+        </div>
+        <div class="meta">
+          <span class="lines">20 lines</span>
+          <span class="fav active"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21C12 21 3 13.9 3 8.5C3 5.4 5.4 3 8.2 3C9.7 3 11.1 3.7 12 4.9C12.9 3.7 14.3 3 15.8 3C18.6 3 21 5.4 21 8.5C21 13.9 12 21 12 21Z"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POEM CARDS -->
+  <section class="section">
+    <h2>Browse Cards</h2>
+    <div class="row">
+      <div class="col"><span class="cap">Standard · default</span>
+        <div class="pcard">
+          <div class="img"></div>
+          <div class="body">
+            <h3>Hope is the thing with feathers</h3>
+            <p class="auth">Emily Dickinson</p>
+            <p class="fl">Hope is the thing with feathers that perches in the soul</p>
+            <div class="foot"><span class="lines">12 lines</span>
+              <span class="fav"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21C12 21 3 13.9 3 8.5C3 5.4 5.4 3 8.2 3C9.7 3 11.1 3.7 12 4.9C12.9 3.7 14.3 3 15.8 3C18.6 3 21 5.4 21 8.5C21 13.9 12 21 12 21Z"/></svg></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col"><span class="cap">Standard · hover</span>
+        <div class="pcard hover">
+          <div class="img"></div>
+          <div class="body">
+            <h3>A Dream Within a Dream</h3>
+            <p class="auth">Edgar Allan Poe</p>
+            <p class="fl">Take this kiss upon the brow! And, in parting from you now</p>
+            <div class="foot"><span class="lines">24 lines</span>
+              <span class="fav hover"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21C12 21 3 13.9 3 8.5C3 5.4 5.4 3 8.2 3C9.7 3 11.1 3.7 12 4.9C12.9 3.7 14.3 3 15.8 3C18.6 3 21 5.4 21 8.5C21 13.9 12 21 12 21Z"/></svg></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:24px;">
+      <span class="cap">Featured (wide)</span>
+      <div class="pcard wide" style="margin-top:10px;">
+        <div class="img"><span class="badge">Featured</span></div>
+        <div class="body">
+          <h3>The Tyger</h3>
+          <p class="auth">William Blake</p>
+          <p class="fl">Tyger Tyger, burning bright, In the forests of the night</p>
+          <div class="foot"><span class="lines">24 lines</span>
+            <span class="fav"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21C12 21 3 13.9 3 8.5C3 5.4 5.4 3 8.2 3C9.7 3 11.1 3.7 12 4.9C12.9 3.7 14.3 3 15.8 3C18.6 3 21 5.4 21 8.5C21 13.9 12 21 12 21Z"/></svg></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAVORITE HEART -->
+  <section class="section">
+    <h2>Favorite Heart</h2>
+    <div class="row" style="align-items:center;">
+      <div class="col" style="align-items:center;"><span class="cap">Rest</span>
+        <span class="fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21C12 21 3 13.9 3 8.5C3 5.4 5.4 3 8.2 3C9.7 3 11.1 3.7 12 4.9C12.9 3.7 14.3 3 15.8 3C18.6 3 21 5.4 21 8.5C21 13.9 12 21 12 21Z"/></svg></span>
+      </div>
+      <div class="col" style="align-items:center;"><span class="cap">Hover</span>
+        <span class="fav hover"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21C12 21 3 13.9 3 8.5C3 5.4 5.4 3 8.2 3C9.7 3 11.1 3.7 12 4.9C12.9 3.7 14.3 3 15.8 3C18.6 3 21 5.4 21 8.5C21 13.9 12 21 12 21Z"/></svg></span>
+      </div>
+      <div class="col" style="align-items:center;"><span class="cap">Active</span>
+        <span class="fav active"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21C12 21 3 13.9 3 8.5C3 5.4 5.4 3 8.2 3C9.7 3 11.1 3.7 12 4.9C12.9 3.7 14.3 3 15.8 3C18.6 3 21 5.4 21 8.5C21 13.9 12 21 12 21Z"/></svg></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RAIL CARD -->
+  <section class="section">
+    <h2>Rail Card</h2>
+    <div class="row">
+      <div class="railcard">
+        <div class="rhead"><span class="h">Keep exploring</span></div>
+        <div class="crow hover">
+          <span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg></span>
+          <span class="txt"><span class="t">Surprise me</span><span class="s">A poem picked at random</span></span>
+          <span class="chev"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 3 11 8 6 13"/></svg></span>
+        </div>
+        <div class="crow">
+          <span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/></svg></span>
+          <span class="txt"><span class="t">More from Keats</span><span class="s">Browse this poet's work</span></span>
+          <span class="chev"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 3 11 8 6 13"/></svg></span>
+        </div>
+      </div>
+
+      <div class="railcard">
+        <div class="rhead">
+          <span class="i"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21C12 21 3 13.9 3 8.5C3 5.4 5.4 3 8.2 3C9.7 3 11.1 3.7 12 4.9C12.9 3.7 14.3 3 15.8 3C18.6 3 21 5.4 21 8.5C21 13.9 12 21 12 21Z"/></svg></span>
+          <span class="h">Your favorites</span>
+        </div>
+        <div class="crow"><span class="txt"><span class="t">Ozymandias</span><span class="s">Percy Bysshe Shelley</span></span><span class="chev"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 3 11 8 6 13"/></svg></span></div>
+        <div class="crow"><span class="txt"><span class="t">The Tyger</span><span class="s">William Blake</span></span><span class="chev"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 3 11 8 6 13"/></svg></span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
